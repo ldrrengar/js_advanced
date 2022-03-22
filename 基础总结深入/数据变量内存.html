@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据变量内存</title>
+</head>
+
+<body>
+    <!-- 
+        1、什么是数据？
+            * 存储载内存中代表特定信息的东西。比如0101....
+            * 数据的特点：可传递、可运算
+            * 一切皆数据
+            * 内存中所有的操作目标：数据
+                * 算数运算
+                * 逻辑运算
+                * 赋值
+                * 运行函数
+        2、什么是内存？
+            * 内存通电后产生的可存储数据的空间（临时的）
+            * 内存产生和死亡：内存条（电路板）=》通电=》产生内存空间=》存储数据=》处理数据=》断电=》内存空间和数据都消失
+            * 一块小内存的两个数据
+                * 内部存储的值
+                * 地址值
+            * 内存分类
+                * 栈：全局变量/局部变量
+                * 堆：对象 
+        3、什么是变量
+            * 可变化的量。由变量名和变量值组成
+            * 每个变量都对应一块小内存，变量名用来查找对应的内存，变量值就是内存中保存的数据
+        4、内存、数据、变量三者之间的关系？
+     -->
+    <script>
+        /**
+         * 问题: var a = xxx, a内存中到底保存的是什么?
+         * xxx是一个基本数据,保存的就是这个数据
+         * xxx是一个对象，保存对象的地址
+         * xxx是一个变量，保存xxx内容（可能是基本数据，也可能是地址值）
+         * 
+         */
+        var a = 3
+        a = function () {
+
+        }
+
+        var b = 'abc'
+        a = b
+        b = []
+        a = b
+
+        /**
+         * 关于引用变量赋值的问题
+         */
+        //1. 2个引用变量指向同一个对象, 通过一个引用变量修改对象内部数据, 另一个引用变量也看得见
+        var obj1 = {}
+        var obj2 = obj1
+        obj2.name = 'Tom'
+        console.log(obj1.name)
+        function f1(obj) {
+            obj.age = 12
+        }
+        f1(obj2)
+        console.log(obj1.age)
+
+        //2. 2个引用变量指向同一个对象,让一个引用变量指向另一个对象, 另一个引用变量还是指向原来的对象
+        var obj3 = { name: 'Tom' }
+        var obj4 = obj3
+        obj3 = { name: 'JACK' }
+        console.log(obj4.name)
+        function f2(obj) {
+            obj = { name: 'Bob' }
+        }
+        f2(obj4)
+        console.log(obj4.name)
+
+    </script>
+</body>
+
+</html>
