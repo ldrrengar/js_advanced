@@ -38,7 +38,6 @@
            console.log('fn3()')
        }
        console.log(fs) // 因为函数提升的优先级大于变量提升，所以输出fs函数体
-       console.log(fs()) // 先输出函数体里面内容undefined和10，最后输出undefined，因为函数若没明显的return，则默认输出undefined
        var fs = 10
        function fs() {
            var a
