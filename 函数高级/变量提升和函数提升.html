@@ -16,6 +16,8 @@
          *  通过function声明的函数，在之前就可以直接调用
          *  值：函数定义(对象)
          * 3、问题：变量提升和函数提升是如何产生的？
+         *  通常js引擎会在正式执行之前进行一次预编译，在这个过程中，首先将变量声明及函数声明提升至当前作用域的顶端(即所谓的变量提升和函数提升)，
+         *  然后运行代码，从上至下运行。
          * 
         */
        var a = 3
@@ -34,6 +36,15 @@
 
        var fn3 = function() {
            console.log('fn3()')
+       }
+       console.log(fs) // 因为函数提升的优先级大于变量提升，所以输出fs函数体
+       console.log(fs()) // 先输出函数体里面内容undefined和10，最后输出undefined，因为函数若没明显的return，则默认输出undefined
+       var fs = 10
+       function fs() {
+           var a
+           ;console.log(a);
+           a = 10;
+           console.log(a)
        }
     </script>
 </body>
