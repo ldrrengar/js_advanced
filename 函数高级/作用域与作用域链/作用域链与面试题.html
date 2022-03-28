@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域链与面试题</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * 1、理解
+         *  多个上下级关系的作用域形成的链，它的方向是从下向上的(从内到外)
+         *  查找变量时就是沿着作用域链来查找的
+         * 2、查找一个变量的查找规则
+         *  在当前作用域下的执行上下文中查找对应的属性，如果有直接返回，否则进入2
+         *  在上一级作用域的执行上下文中查找对应的属性，如果有直接返回，否则进入3
+         *  再次执行2的相同操作，直到全局作用域，如果还找不到就抛出找不到的异常
+         */
+        var a = 1
+
+        function fn1() {
+            var b = 2
+
+            function fn2() {
+                var c = 3
+                console.log(c)
+                console.log(b)
+                console.log(a)
+                // console.log(d)
+            }
+            fn2()
+        }
+        fn1()
+
+        // 面试题1
+        var x = 10
+
+        function fn() {
+            console.log(x)
+        }
+
+        function show(f) {
+            var x = 20
+            f()
+        }
+        show(fn) // 10 fn作用域是一开始就定义的时候就定义好作用域了，跟调用无关，所以是打印10
+
+        // 面试题2
+        var foo = function() {
+            console.log(foo)
+        }
+        foo()
+
+        var obj = {
+            foo1: function() {
+                console.log(foo1)
+            }
+        }
+        obj.foo1() // 打印报错，一开始在foo1作用域下找foo1，没找到，然后去全局作用域下找，因为是obj下的函数，所以也找不到，所以报错
+    </script>
+</body>
+
+</html>
